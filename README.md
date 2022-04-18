@@ -29,6 +29,17 @@
     MasterPaster is a lightweight, viewless clipboard manager for Windows
 </p>
 
+## Table of Contents
+
+- [Installation](#installation)
+- [Features](#features)
+  * [Controls](#controls)
+  * [Notification Icon](#notification-icon)
+    + [`Disable` or `Enable`](#-disable--or--enable-)
+    + [`Run at Startup`](#-run-at-startup-)
+    + [`Exit`](#-exit-)
+- [Building](#building)
+
 ## Installation
 
 In order to install **MasterPaster**, head over to the [Releases](https://github.com/giosali/masterpaster/releases) and download the `MasterPaster-x.x.x.msi` file under the most latest release. Once it's finished downloading, double-click it and follow the on-screen prompts.
