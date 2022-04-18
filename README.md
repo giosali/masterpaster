@@ -1,7 +1,7 @@
 <h1 align="center">MasterPaster</h1>
 
 <p align="center">
-    <img src="" alt="Logo" width="400">
+    <img src="https://raw.githubusercontent.com/giosali/masterpaster/main/ext/logo.png" alt="Logo" width="400">
 </p>
 
 <p align="center">
@@ -47,7 +47,7 @@ The viewless clipboard works by containing a maximum of 10 of the most recent it
 
 For example, if you copied the word *dog* and wanted to paste it, you could do so by pressing <kbd>ctrl</kbd> + <kbd>1</kbd>.
 
-And then if you copied the word *cat* 9 times and wanted to paste *dog* again, you could still do so by pressing <kbd>ctrl</kbd> + <kbd>0<kbd>.
+And then if you copied the word *cat* 9 times and wanted to paste *dog* again, you could still do so by pressing <kbd>ctrl</kbd> + <kbd>0</kbd>.
 
 So in **summary**:
 
@@ -71,7 +71,7 @@ And if you copied an item, the item in the tenth position disappears and the fir
 Configuring and managing the application is simple and can be done by right-clicking on **MasterPaster**'s notification icon.
 
 <p align="center">
-    <img src="" alt="Notification icon with settings" width="400">
+    <img src="https://raw.githubusercontent.com/giosali/masterpaster/main/ext/notifyicon.png" alt="Notification icon with settings" width="350">
 </p>
 
 #### `Disable` or `Enable`
