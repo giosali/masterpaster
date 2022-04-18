@@ -1,7 +1,7 @@
 <h1 align="center">MasterPaster</h1>
 
 <p align="center">
-    <img src="https://raw.githubusercontent.com/giosali/masterpaster/main/ext/logo.png" alt="Logo" width="400">
+    <img src="https://raw.githubusercontent.com/giosali/masterpaster/main/ext/logo.png" alt="Logo" width="175">
 </p>
 
 <p align="center">
