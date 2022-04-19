@@ -98,9 +98,16 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             std::this_thread::sleep_for(std::chrono::milliseconds(50));
 
             const wchar_t* text = g_clipboard.getText();
+
+            // Prevents duplicate copies by checking if the item to add is already at the
+            // front of collection.
+            if (g_clipboardItems.size() > 0 && wcscmp(g_clipboardItems[0], text) == 0) {
+                break;
+            }
+
             g_clipboardItems.push_front(text);
 
-            // Ensures the deque contains at most 10 items at any given time.
+            // Ensures the collection contains at most 10 items at any given time.
             if (g_clipboardItems.size() > 10) {
                 g_clipboardItems.pop_back();
             }
