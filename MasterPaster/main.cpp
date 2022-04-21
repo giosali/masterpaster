@@ -194,7 +194,7 @@ BOOL addNotificationIcon(HWND& hWnd)
     nid.uID = g_notifyIconId;
     nid.uCallbackMessage = WMAPP_NOTIFYCALLBACK;
     nid.hIcon = (HICON)LoadImage(g_hInst, MAKEINTRESOURCE(IDI_NOTIFICATIONICON), IMAGE_ICON, 0, 0, LR_DEFAULTCOLOR | LR_DEFAULTSIZE);
-    wcscpy_s(nid.szTip, L"MasterPaster v1.0.0");
+    wcscpy_s(nid.szTip, L"MasterPaster v1.0.1");
     Shell_NotifyIcon(NIM_ADD, &nid);
 
     // NOTIFYICON_VERSION_4 is preferred
