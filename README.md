@@ -56,9 +56,9 @@ Ultimately, **MasterPaster** is a powerful tool for boosting productivity and re
 
 The viewless clipboard works by containing a maximum of 10 of the most recent items that you've copied. You can access those items by holding down the <kbd>ctrl</kbd> key and pressing any number key from <kbd>1</kbd> to <kbd>0</kbd>, with <kbd>1</kbd> representing the most recent item and <kbd>0</kbd> representing the 10th most recent item.
 
-For example, if you copied the word *dog* and wanted to paste it, you could do so by pressing <kbd>ctrl</kbd> + <kbd>1</kbd>.
+For example, if you copied some selected text and wanted to paste it, you could do so by pressing <kbd>ctrl</kbd> + <kbd>1</kbd>.
 
-And then if you copied the word *cat* 9 times and wanted to paste *dog* again, you could still do so by pressing <kbd>ctrl</kbd> + <kbd>0</kbd>.
+And then if you copied the 9 different excerpts and wanted to paste the original text again, you could still do so by pressing <kbd>ctrl</kbd> + <kbd>0</kbd>.
 
 So in **summary**:
 
