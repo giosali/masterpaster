@@ -5,12 +5,14 @@ target_sources(${PROJECT_NAME}
         MasterPaster.ico
         MasterPaster.rc
         clipboard.cpp
+        ini.cpp
         io.cpp
         keyboard.cpp
         main.cpp
         utils.cpp
     PUBLIC
         clipboard.h
+        ini.h
         io.h
         keyboard.h
         main.h
