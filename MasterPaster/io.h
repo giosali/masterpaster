@@ -4,32 +4,28 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+#include <typeinfo>
 #include <unordered_map>
+#include <Windows.h>
+#include "ini.h"
 
 namespace io {
 
-class ConfigurationFile {
-public:
-    ConfigurationFile();
-    ConfigurationFile(const std::string&, const char&);
+namespace {
 
-    std::string& operator[](const std::string&);
+    static const std::string appDataDirectoryName = "MasterPaster";
+    static const std::string settingsIniFilename = "Settings.ini";
 
-    bool exists() const;
-    void save() const;
-    void overwrite(const std::unordered_map<std::string, std::string>&) const;
+} // namespace
 
-private:
-    void write(const std::unordered_map<std::string, std::string>&) const;
-    void parse();
+namespace settings {
 
-    char m_delimiter;
-    std::filesystem::path m_filePath;
-    std::unordered_map<std::string, std::string> m_settings;
-};
+    const static std::string runAtStartup = "Settings.runAtStartup";
 
-std::string getAppDataDirectoryPath();
+} // namespace settings
 
-std::unordered_map<std::string, std::string> createSettings();
+std::filesystem::path getAppDataDirectoryPath();
+std::filesystem::path getSettingsIniPath();
+std::string getIniResource(uint32_t);
 
 } // namespace io

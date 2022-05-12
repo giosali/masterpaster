@@ -3,26 +3,26 @@
 #include <chrono>
 #include <deque>
 #include <stdexcept>
+#include <tchar.h>
 #include <thread>
 #include <vector>
 #include <Windows.h>
-#include <tchar.h>
 #include "clipboard.h"
+#include "ini.h"
 #include "io.h"
 #include "keyboard.h"
 #include "utils.h"
 
 // Global Variables:
 HINSTANCE g_hInst = NULL;
-io::ConfigurationFile g_settings;
 Clipboard g_clipboard;
+ini::IniFile g_settingsIni;
 Keyboard g_keyboard;
 std::deque<const wchar_t*> g_clipboardItems;
 const uint32_t g_notifyIconId = 1;
+const UINT WMAPP_NOTIFYCALLBACK = WM_APP + 1;
 static TCHAR szWindowClass[] = _T("masterPaster");
 static TCHAR szTitle[] = _T("MasterPaster");
-
-UINT const WMAPP_NOTIFYCALLBACK = WM_APP + 1;
 
 // Forward declarations of functions included in this code module:
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
@@ -112,7 +112,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                 g_clipboardItems.pop_back();
             }
         }
-        break;
+
+        return 1;
+        //break;
     }
     case WM_COMMAND: {
         int const wmId = LOWORD(wParam);
@@ -122,9 +124,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             g_keyboard.setIsEnabled(!g_keyboard.getIsEnabled());
             break;
         case IDM_RUNATSTARTUP: {
-            bool runAtStartup = !utils::stringToBool(g_settings["runAtStartup"]);
-            g_settings["runAtStartup"] = utils::boolToString(runAtStartup);
-            g_settings.save();
+            bool runAtStartup = !g_settingsIni.get<bool>(io::settings::runAtStartup).value().boolean;
+            g_settingsIni.set(io::settings::runAtStartup, runAtStartup);
+            g_settingsIni.save();
             if (runAtStartup) {
                 registerRunValue();
             } else {
@@ -147,10 +149,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             return -1;
         }
 
-        g_settings = io::ConfigurationFile("Settings.txt", '=');
-        if (!g_settings.exists()) {
-            g_settings.overwrite(io::createSettings());
-            if (utils::stringToBool(g_settings["runAtStartup"])) {
+        g_settingsIni = ini::IniFile(io::getSettingsIniPath());
+        if (!g_settingsIni.exists()) {
+            std::string text = io::getIniResource(IDR_SETTINGSINI);
+            g_settingsIni.load(text);
+            if (g_settingsIni.get<bool>(io::settings::runAtStartup).value().boolean) {
                 registerRunValue();
             }
         }
@@ -218,7 +221,7 @@ void showContextMenu(HWND& hWnd, POINT& pt)
         if (hSubMenu) {
             std::wstring ws = utils::stringToWString(g_keyboard.getIsEnabled() ? "Disable" : "Enable");
             editContextMenuItem(hMenu, IDM_ENABLE, MIIM_STRING | MIIM_DATA, false, ws.c_str());
-            editContextMenuItem(hMenu, IDM_RUNATSTARTUP, MIIM_STATE, utils::stringToBool(g_settings["runAtStartup"]));
+            editContextMenuItem(hMenu, IDM_RUNATSTARTUP, MIIM_STATE, g_settingsIni.get<bool>(io::settings::runAtStartup).value().boolean);
 
             // The window must be the foreground window before calling TrackPopupMenu
             // or the menu will not disappear when the user clicks away.
