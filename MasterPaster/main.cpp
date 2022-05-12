@@ -292,8 +292,9 @@ void registerRunValue()
     HKEY hKey;
     LONG retval = RegOpenKeyEx(HKEY_CURRENT_USER, L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", 0, KEY_WRITE, &hKey);
     if (retval == ERROR_SUCCESS) {
-        RegSetValueEx(hKey, szTitle, 0, REG_SZ, (const BYTE*)fp.c_str(), (unsigned)(fp.length() + 1));
+        RegSetValueEx(hKey, szTitle, 0, REG_SZ, (BYTE*)fp.c_str(), (unsigned)((fp.size() + 1) * sizeof(wchar_t)));
     }
+
 }
 
 void deleteRunValue()
