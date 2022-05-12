@@ -113,8 +113,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             }
         }
 
-        return 1;
-        //break;
+        break;
     }
     case WM_COMMAND: {
         int const wmId = LOWORD(wParam);
