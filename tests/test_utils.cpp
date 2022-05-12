@@ -11,6 +11,16 @@ namespace tests {
     TEST_CLASS(tests) {
         public:
 
+            TEST_METHOD(boolToString) {
+            // When given true
+            // Should return "true".
+            Assert::AreEqual(utils::boolToString(true), std::string("true"));
+
+            // When given false
+            // Should return "false".
+            Assert::AreEqual(utils::boolToString(false), std::string("false"));
+            } // namespace tests
+
             TEST_METHOD(stringToBool) {
                 // Should handle true strings.
                 std::vector<std::string> trueStrs = { "true", "True" };
@@ -25,14 +35,133 @@ namespace tests {
                 }
             }
 
-            TEST_METHOD(boolToString) {
-                // When given true
-                // Should return "true".
-                Assert::AreEqual(utils::boolToString(true), std::string("true"));
+            TEST_METHOD(stringToWString) {
+                // Both strings should have the same content.
+                std::wstring expected = L"Hello world";
+                std::string s = "Hello world";
+                std::wstring actual = utils::stringToWString(s);
+                for (int i = 0; i < expected.length(); i++) {
+                    Assert::AreEqual(expected[i], actual[i]);
+                }
+            }
 
-                // When given false
-                // Should return "false".
-                Assert::AreEqual(utils::boolToString(false), std::string("false"));
+            TEST_METHOD(replace) {
+                // Should replace all spaces.
+                std::string s = "  Hello  ";
+                std::string expected = "Hello";
+                std::string actual = utils::replace(s, ' ');
+                Assert::AreEqual(expected, actual);
+
+                // Should replace specific character.
+                s = "ooHellooo";
+                expected = "Hell";
+                actual = utils::replace(s, 'o');
+                Assert::AreEqual(expected, actual);
+
+                // Should replace entire portion.
+                s = "abcHelloabc";
+                expected = "Hello";
+                actual = utils::replace(s, "abc");
+                Assert::AreEqual(expected, actual);
+            }
+
+            TEST_METHOD(trim) {
+                // When given no argument for char
+                // Should trim spaces on both sides.
+                std::string s = "  Hello  ";
+                std::string expected = "Hello";
+                std::string actual = utils::trim(s);
+                Assert::AreEqual(expected, actual);
+
+                s = "  Hello";
+                actual = utils::trim(s);
+                Assert::AreEqual(expected, actual);
+
+                s = "Hello  ";
+                actual = utils::trim(s);
+                Assert::AreEqual(expected, actual);
+
+                // When given a char
+                // Should trim it from both sides.
+                char ch = 'a';
+                s = "aaHelloaa";
+                actual = utils::trim(s, ch);
+                Assert::AreEqual(expected, actual);
+
+                s = "aaHello";
+                actual = utils::trim(s, ch);
+                Assert::AreEqual(expected, actual);
+
+                s = "Helloaa";
+                actual = utils::trim(s, ch);
+                Assert::AreEqual(expected, actual);
+            }
+
+            TEST_METHOD(ltrim) {
+                // When given no argument for char
+                // Should trim spaces on left side.
+                std::string s = "  Hello  ";
+                std::string expected = "Hello  ";
+                std::string actual = utils::ltrim(s);
+                Assert::AreEqual(expected, actual);
+
+                s = "Hello  ";
+                actual = utils::ltrim(s);
+                Assert::AreEqual(expected, actual);
+
+                // When given a char
+                // Should trim it from left side.
+                char ch = 'a';
+                s = "aaHelloaa";
+                expected = "Helloaa";
+                actual = utils::ltrim(s, ch);
+                Assert::AreEqual(expected, actual);
+
+                s = "Helloaa";
+                actual = utils::ltrim(s, ch);
+                Assert::AreEqual(expected, actual);
+            }
+
+            TEST_METHOD(rtrim)
+            {
+                // When given no argument for char
+                // Should trim spaces on right side.
+                std::string s = "  Hello  ";
+                std::string expected = "  Hello";
+                std::string actual = utils::rtrim(s);
+                Assert::AreEqual(expected, actual);
+
+                s = "  Hello";
+                actual = utils::rtrim(s);
+                Assert::AreEqual(expected, actual);
+
+                // When given a char
+                // Should trim it from right side.
+                char ch = 'a';
+                s = "aaHelloaa";
+                expected = "aaHello";
+                actual = utils::rtrim(s, ch);
+                Assert::AreEqual(expected, actual);
+
+                s = "aaHello";
+                actual = utils::rtrim(s, ch);
+                Assert::AreEqual(expected, actual);
+            }
+
+            TEST_METHOD(split) {
+                // When given no argument for char
+                // Should split string based on spaces.
+                std::string s = "Hello world";
+                size_t expected = 2;
+                std::vector<std::string> splits = utils::split(s);
+                Assert::AreEqual(expected, splits.size());
+
+                // When given char
+                // Should split string based on char.
+                s = "Helloaworld";
+                expected = 2;
+                splits = utils::split(s, 'a');
+                Assert::AreEqual(expected, splits.size());
             }
     };
 

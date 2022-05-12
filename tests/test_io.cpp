@@ -12,17 +12,14 @@ namespace tests {
 		
 		TEST_METHOD(getAppDataDirectoryPath) {
 			// Should not return an empty string.
-            std::string actual = io::getAppDataDirectoryPath();
+            std::filesystem::path actual = io::getAppDataDirectoryPath();
 			Assert::IsFalse(actual.empty());
 		}
 
-		TEST_METHOD(createSettings) {
-			// Should not return an empty unordered map.
-            std::unordered_map<std::string, std::string> umap = io::createSettings();
-			Assert::IsFalse(umap.empty());
-
-			// "runAtStartup" should exist and be initialized to "true".
-            Assert::AreEqual(umap["runAtStartup"], std::string("true"));
+		TEST_METHOD(getSettingsIniPath) {
+            // Should not return an empty string.
+            std::filesystem::path actual = io::getSettingsIniPath();
+            Assert::IsFalse(actual.empty());
 		}
 	};
 
